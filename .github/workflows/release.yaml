@@ -3,25 +3,15 @@ name: Release
 on:
   push:
     tags:
-      - '*'
+      - "*.*"
 
 jobs:
-  create_release:
+  release:
     runs-on: ubuntu-latest
 
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
 
-    - name: Create GitHub Release
-      id: create_release
-      uses: actions/create-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        tag_name: ${{ github.ref }}
-        release_name: Release ${{ github.ref }}
-        body: |
-          This release is based on the tag `${{ github.ref }}`.
-        draft: false
-        prerelease: false
+    - name: Release
+      uses: softprops/action-gh-release@v2
