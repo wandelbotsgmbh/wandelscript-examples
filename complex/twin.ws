@@ -1,16 +1,16 @@
 # robot poses
-UR_HOME = [508.1, 140.1, 569.2, pi, 0, 0]
+UR_HOME = (508.1, 140.1, 569.2, pi, 0, 0)
 
-UR_PICK_01 = [-13.8, -374.2, 337.0, pi, 0, 0]
+UR_PICK_01 = (-13.8, -374.2, 337.0, pi, 0, 0)
 UR_PICK_APPROACH_OFFSET = -100
 
-UR_PLACE = [404.0, 535.4, 448.5, pi, 0, 0]
+UR_PLACE = (404.0, 535.4, 448.5, pi, 0, 0)
 UR_PLACE_APPROACH_OFFSET = -80
 
-ABB_HOME = [524.6, -250.3, 578.4, 0, 0, 2.9]
-ABB_PICK_APPROACH = [398, -450.6, 460, 0, -0.3, 2.9]
-ABB_PICK = [398, -450.6, 420, 0, -0.3, 2.9]
-ABB_DROP = [25.5, 673.5, 424.8, 0, 0, 2.9]
+ABB_HOME = (524.6, -250.3, 578.4, 0, 0, 2.9)
+ABB_PICK_APPROACH = (398, -450.6, 460, 0, -0.3, 2.9)
+ABB_PICK = (398, -450.6, 420, 0, -0.3, 2.9)
+ABB_DROP = (25.5, 673.5, 424.8, 0, 0, 2.9)
 
 # Conveyor:
 # Run the conveyor to the right (velocity > 0)
@@ -88,8 +88,8 @@ def startup():
 def get_grid_pose(corner_pose, idx):
     grid_step = 87
     grid_n = 3
-    dir_1 = [grid_step * modulo(idx, grid_n), 0, 0, 0, 0, 0]
-    dir_2 = [0, grid_step * intdiv(idx, grid_n), 0, 0, 0, 0]
+    dir_1 = (grid_step * modulo(idx, grid_n), 0, 0, 0, 0, 0]
+    dir_2 = (0, grid_step * intdiv(idx, grid_n), 0, 0, 0, 0]
     pose_for_idx = corner_pose :: dir_1 :: dir_2
     return pose_for_idx
 
@@ -97,7 +97,7 @@ def single_box(box_num):
     velocity(200)
     acceleration(200)
     ur_pick = get_grid_pose(UR_PICK_01, box_num)
-    ur_pick_approach = ur_pick :: [0, 0, UR_PICK_APPROACH_OFFSET, 0, 0, 0]
+    ur_pick_approach = ur_pick :: (0, 0, UR_PICK_APPROACH_OFFSET, 0, 0, 0]
 
     do with ur_0:
         move UR_TCP via p2p() to UR_HOME
@@ -106,7 +106,7 @@ def single_box(box_num):
         close_ur_gripper()
     wait(1000)
 
-    ur_place_approach = UR_PLACE :: [0, 0, UR_PLACE_APPROACH_OFFSET, 0, 0, 0]
+    ur_place_approach = UR_PLACE :: (0, 0, UR_PLACE_APPROACH_OFFSET, 0, 0, 0]
     do with ur_0:
         move UR_TCP via line() to ur_pick_approach
         start_conveyor_left()
@@ -144,7 +144,7 @@ def single_box(box_num):
             move via p2p() to ABB_DROP
 
         open_abb_gripper()
-        move via line() to ABB_DROP :: [0, 0, 10] with velocity(200)
+        move via line() to ABB_DROP :: (0, 0, 10] with velocity(200)
 
     wait(1000)
 
