@@ -1,0 +1,22 @@
+home = (552.9, 339.5, 274, 1.2232, -2.8803, 0.0255)
+bottle = (671.9, 411.4, 210, -0.9615, 2.304, 0.3044)
+moveOpen = (-12,0,-10,0,0.65,0)
+Bottle_opener_s = frame("Bottle_opener_s")
+
+velocity(50)
+move via p2p() to home
+
+# approach
+move Bottle_opener_s via line() to bottle :: (0,0,-10,0,0,0)
+
+# open
+velocity(10)
+move Bottle_opener_s via line() to bottle
+wait(750)
+move Bottle_opener_s via line() to bottle :: moveOpen
+
+# retreat
+velocity(50)
+move Bottle_opener_s via line() to (-10, 0, 20, 0, 0, 0) :: bottle :: moveOpen
+
+move via p2p() to home
