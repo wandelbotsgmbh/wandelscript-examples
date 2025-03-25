@@ -1,3 +1,4 @@
+tcp("Flange")
 move via p2p() to (-200, -600, 300, 0, pi, 0)
 move via line() to (-250, -600, 300, 0, pi, 0)
 a = planned_pose()
